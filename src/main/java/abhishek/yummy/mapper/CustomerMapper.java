@@ -2,6 +2,7 @@ package abhishek.yummy.mapper;
 
 import abhishek.yummy.Entity.Customer;
 import abhishek.yummy.dto.CustomerRequest;
+import abhishek.yummy.dto.CustomerResponse;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,5 +14,9 @@ public class CustomerMapper {
                 .email(request.email())
                 .password(request.password())
                 .build();
+    }
+
+    public CustomerResponse toCustomerResponse(Customer customer) {
+        return new CustomerResponse(customer.getFirstName(), customer.getLastName(), customer.getEmail());
     }
 }

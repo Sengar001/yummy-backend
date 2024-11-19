@@ -3,6 +3,8 @@ package abhishek.yummy.controller;
 import abhishek.yummy.Entity.Customer;
 import abhishek.yummy.dto.CustomerRequest;
 import abhishek.yummy.dto.CustomerResponse;
+import abhishek.yummy.dto.DeleteRequest;
+import abhishek.yummy.dto.UpdateRequest;
 import abhishek.yummy.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,12 +31,20 @@ public class CustomerController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<String> updateCustomer(@RequestHeader ("Authorization") String authHeader, @RequestBody @Valid CustomerRequest request){
+    public ResponseEntity<String> updateCustomer(@RequestHeader ("Authorization") String authHeader, @RequestBody @Valid UpdateRequest request){
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             authHeader = authHeader.substring(7);
         }
         return ResponseEntity.ok(customerService.updateCustomer(authHeader, request));
 
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteCustomer(@RequestHeader ("Authorization") String authHeader, @RequestBody @Valid DeleteRequest request){
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            authHeader = authHeader.substring(7);
+        }
+        return ResponseEntity.ok(customerService.deleteCustomer(authHeader, request));
     }
 
     @PostMapping

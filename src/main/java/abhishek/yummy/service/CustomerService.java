@@ -1,9 +1,7 @@
 package abhishek.yummy.service;
 
 import abhishek.yummy.Entity.Customer;
-import abhishek.yummy.dto.CustomerRequest;
-import abhishek.yummy.dto.CustomerResponse;
-import abhishek.yummy.dto.LoginRequest;
+import abhishek.yummy.dto.*;
 import abhishek.yummy.exception.CustomerNotFound;
 import abhishek.yummy.loginhelper.EncryptionService;
 import abhishek.yummy.loginhelper.JWThelper;
@@ -43,7 +41,7 @@ public class CustomerService {
                 ));
     }
 
-    public String updateCustomer(String token, CustomerRequest request) {
+    public String updateCustomer(String token, UpdateRequest request) {
         if(!jwThelper.validateToken(token, request.email())){
             return "Invalid token";
         }
@@ -55,6 +53,15 @@ public class CustomerService {
         customer.setPassword(encryptionService.encode(request.password()));
         repo.save(customer);
         return "Customer updated";
+    }
+
+    public String deleteCustomer(String token, DeleteRequest request) {
+        if(!jwThelper.validateToken(token, request.email())){
+            return "Invalid token";
+        }
+        Customer customer = loginCustomer(request.email());
+        repo.delete(customer);
+        return "Customer deleted";
     }
 
     public Customer loginCustomer(String email) {

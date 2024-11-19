@@ -9,6 +9,8 @@ import abhishek.yummy.repo.ProductRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ProductService {
@@ -44,5 +46,9 @@ public class ProductService {
         Product product = validate(request.productName());
         repo.delete(product);
         return "Product Deleted Successfully";
+    }
+
+    public List<ProductResponse> getAllProducts(Double minPrice, Double maxPrice) {
+        return repo.findByPriceGreaterThanAndPriceLessThanOrderByPriceAsc(minPrice, maxPrice);
     }
 }

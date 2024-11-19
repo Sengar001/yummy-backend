@@ -8,6 +8,6 @@ public record ProductResponse(
         @JsonProperty("product_name")
         String productName,
         @JsonProperty("price")
-        Long price
+        Double price
 ) {
 }

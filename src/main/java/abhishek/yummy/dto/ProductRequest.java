@@ -17,6 +17,6 @@ public record ProductRequest(
         @NotNull(message = "Price should be present")
         @Positive
         @JsonProperty("price")
-        Long price
+        Double price
 ) {
 }

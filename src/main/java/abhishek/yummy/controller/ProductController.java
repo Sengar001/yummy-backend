@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/product")
@@ -32,5 +34,10 @@ public class ProductController {
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteProduct(@RequestBody @Valid ProductRequest product) {
         return ResponseEntity.ok(productService.deleteProduct(product));
+    }
+
+    @GetMapping("/priceInRange")
+    public ResponseEntity<List<ProductResponse>> getProductInRange(@RequestParam ("from") Double minPrice, @RequestParam ("to") Double maxPrice) {
+        return ResponseEntity.ok(productService.getAllProducts(minPrice, maxPrice));
     }
 }

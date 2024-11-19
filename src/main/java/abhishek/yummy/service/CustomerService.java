@@ -23,7 +23,6 @@ public class CustomerService {
 
     private final CustomerRepo repo;
     private final CustomerMapper mapper;
-    private final CustomerMapper customerMapper;
     private final EncryptionService encryptionService;
     private final JWThelper jwThelper;
 
@@ -78,7 +77,7 @@ public class CustomerService {
 
     public List<CustomerResponse> getAllCustomers() {
         return repo.findAll().stream()
-                .map(customerMapper::toCustomerResponse) // map Customer to CustomerResponse
+                .map(mapper::toCustomerResponse) // map Customer to CustomerResponse
                 .collect(Collectors.toList());
     }
 

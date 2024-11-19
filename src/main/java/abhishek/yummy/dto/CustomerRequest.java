@@ -22,7 +22,7 @@ public record CustomerRequest (
     @NotNull(message = "Password should be present")
     @NotBlank(message = "Password should be present")
     @Size(min = 6, max = 12)
-    @JsonProperty("Password")
+    @JsonProperty("password")
     String password
 ) {
 

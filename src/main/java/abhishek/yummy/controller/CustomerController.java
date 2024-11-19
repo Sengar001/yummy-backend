@@ -28,6 +28,15 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.retrieveCustomer(id));
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<String> updateCustomer(@RequestHeader ("Authorization") String authHeader, @RequestBody @Valid CustomerRequest request){
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            authHeader = authHeader.substring(7);
+        }
+        return ResponseEntity.ok(customerService.updateCustomer(authHeader, request));
+
+    }
+
     @PostMapping
     public ResponseEntity<String> createCustomer(@RequestBody @Valid CustomerRequest request) {
         return ResponseEntity.ok(customerService.createCustomer(request));

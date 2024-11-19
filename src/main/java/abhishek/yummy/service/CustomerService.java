@@ -39,8 +39,22 @@ public class CustomerService {
     public Customer getCustomer(Long id) {
         return repo.findById(id)
                 .orElseThrow(() -> new CustomerNotFound(
-                   format("No customer found by the given ID : %d", id)
+                   format("No customer found by the given ID : %s", id)
                 ));
+    }
+
+    public String updateCustomer(String token, CustomerRequest request) {
+        if(!jwThelper.validateToken(token, request.email())){
+            return "Invalid token";
+        }
+
+        Customer customer = loginCustomer(request.email());
+
+        customer.setFirstName(request.firstName());
+        customer.setLastName(request.lastName());
+        customer.setPassword(encryptionService.encode(request.password()));
+        repo.save(customer);
+        return "Customer updated";
     }
 
     public Customer loginCustomer(String email) {

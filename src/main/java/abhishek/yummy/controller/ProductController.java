@@ -28,4 +28,9 @@ public class ProductController {
     public ResponseEntity<String> updateProduct(@RequestBody @Valid ProductRequest product) {
         return ResponseEntity.ok(productService.updateProduct(product));
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteProduct(@RequestBody @Valid ProductRequest product) {
+        return ResponseEntity.ok(productService.deleteProduct(product));
+    }
 }

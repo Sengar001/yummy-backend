@@ -39,4 +39,10 @@ public class ProductService {
         repo.save(product);
         return "Product Updated Successfully";
     }
+
+    public String deleteProduct(ProductRequest request) {
+        Product product = validate(request.productName());
+        repo.delete(product);
+        return "Product Deleted Successfully";
+    }
 }
